@@ -1,0 +1,146 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.RecycleRally" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!--
+        COLOURS
+        Text: #000000
+        Background: #ffffff
+        Primary: #94e6bb
+        Secondary: #d1f8ff
+        Accent: #32855d
+        -->
+
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+
+    <!-- FONTS -->
+
+    <style name="Titles">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="Subtitles">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="WelcomeSubtitles">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TextSmall">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextLink">
+        <item name="android:textColor">@color/blue_violet</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextRegular">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextRegularBold">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="Text2">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="Text2Bold">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <!-- BUTTONS -->
+    <style name="ButtonsRegular">
+        <item name="android:width">300dp</item>
+        <item name="android:height">50dp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button_states</item>
+    </style>
+
+    <style name="Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="maxImageSize">32dp</item>
+        <item name="fabCustomSize">60dp</item>
+        <item name="tint">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="strokeColor">@color/black</item>
+        <item name="strokeWidth">5dip</item>
+    </style>
+
+    <!-- EDIT TEXT -->
+    <style name="TextInputLayoutStyle">
+        <item name="fontFamily">@font/poppins_italic</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+    <style name="TextInputEditTextStyle">
+        <item name="fontFamily">@font/poppins_italic</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/edittext_states</item>
+    </style>
+
+    <style name="ThemeMaterialComponents" parent="Theme.MaterialComponents">
+        <item name="bottomAppBarStyle">
+            @style/Widget.MaterialComponents.BottomNavigationView.Colored
+        </item>
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorOnPrimary">@color/blue_violet</item>
+    </style>
+
+    <!-- RADIO BUTTONS -->
+    <style name="RadioGroupStyle">
+        <item name="fontFamily">@font/poppins_italic</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+
+    <!-- ANIMATION -->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <style name="Theme.RecycleRally.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.RecycleRally.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.RecycleRally.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="Theme.RecycleRally" parent="Base.Theme.RecycleRally" />
+</resources>

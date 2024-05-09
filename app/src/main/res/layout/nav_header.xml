@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:paddingStart="24dp"
+    android:paddingTop="16dp"
+    android:background="@drawable/green_blue_gradient"
+    tools:ignore="RtlSymmetry">
+
+    <ImageView
+        android:id="@+id/nav_header_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/nav_header_description_icon"
+        android:src="@drawable/compost_75px"
+        android:paddingTop="16dp" />
+
+    <TextView
+        android:id="@+id/nav_header_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nav_header_recycle_rally"
+        style="@style/Subtitles"
+        />
+
+</LinearLayout>

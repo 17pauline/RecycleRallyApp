@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "94970839684",
+    "project_id": "recyclerally-e94b4",
+    "storage_bucket": "recyclerally-e94b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94970839684:android:e90e22c2b303f33333b8d1",
+        "android_client_info": {
+          "package_name": "com.rr.recyclerally"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_qu4wYZUvm4nTpvsu7mjM2ZI4r8_r6Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

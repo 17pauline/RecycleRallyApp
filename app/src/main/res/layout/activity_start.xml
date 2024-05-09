@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_green_gradient"
+    tools:context=".ui.StartActivity">
+
+    <TextView
+        android:id="@+id/start_tv_welcome"
+        style="@style/Titles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/start_app_welcome_title"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/start_tv_recycle_rally"
+        style="@style/Titles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/start_app_welcome"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_tv_welcome"/>
+
+    <ImageView
+        android:id="@+id/start_iv_checkered_flag"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_tv_recycle_rally"
+        android:layout_marginTop="24dp"
+        app:srcCompat="@drawable/checkered_flag"
+        android:contentDescription="@string/start_description_checkered_flag" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/start_iv_recycling_diary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/compost_50px"
+        app:layout_constraintEnd_toStartOf="@id/start_tv_recycling_diary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_checkered_flag" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/start_iv_computer_vision_ai"
+        app:layout_constraintEnd_toStartOf="@id/start_tv_computer_vision_ai"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_recycling_diary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/eye_50px" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/start_iv_community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/people_50px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/start_tv_community"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_computer_vision_ai" />
+
+    <TextView
+        android:id="@+id/start_tv_recycling_diary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_recycling_diary"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_checkered_flag"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_recycling_diary"
+
+        style="@style/WelcomeSubtitles"
+        />
+
+    <TextView
+        android:id="@+id/start_tv_computer_vision_ai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_computer_vision_ai"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_recycling_diary"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_computer_vision_ai"
+        style="@style/WelcomeSubtitles"
+        />
+
+    <TextView
+        android:id="@+id/start_tv_community"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_community"
+        app:layout_constraintTop_toBottomOf="@id/start_iv_computer_vision_ai"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_community"
+        style="@style/WelcomeSubtitles"
+        />
+
+    <TextView
+        android:id="@+id/start_tv_diary_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_recycling_diary"
+        app:layout_constraintTop_toBottomOf="@id/start_tv_recycling_diary"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_diary_explanation"
+        style="@style/TextSmall"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/start_tv_ai_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_computer_vision_ai"
+        app:layout_constraintTop_toBottomOf="@id/start_tv_computer_vision_ai"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_ai_explanation"
+        style="@style/TextSmall"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/start_tv_community_explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/start_iv_community"
+        app:layout_constraintTop_toBottomOf="@id/start_tv_community"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/start_community_explanation"
+        style="@style/TextSmall"
+        android:textAlignment="center"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start_btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/start_btn_signup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        style="@style/ButtonsRegular"
+        android:text="@string/log_in" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start_btn_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/ButtonsRegular"
+        android:layout_marginBottom="32dp"
+        android:text="@string/sign_up" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
