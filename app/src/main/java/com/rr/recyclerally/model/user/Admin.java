@@ -8,8 +8,8 @@ import java.util.List;
 public class Admin extends AUser implements IAdmin {
     private List<Challenge> challenges;
 
-    public Admin(String email, String username, String password, EUserType userType) {
-        super(email, username, password, userType);
+    public Admin(String email, String username, EUserType userType) {
+        super(email, username, userType);
         this.challenges = new ArrayList<>();
     }
 

@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "94970839684",
     "project_id": "recyclerally-e94b4",
-    "storage_bucket": "recyclerally-e94b4.appspot.com"
+    "storage_bucket": "recyclerally-e94b4.appspot.com",
+    "firebase_url": "https://recyclerally-e94b4-default-rtdb.europe-west1.firebasedatabase.app"
   },
   "client": [
     {

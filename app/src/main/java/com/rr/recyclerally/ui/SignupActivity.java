@@ -2,6 +2,7 @@ package com.rr.recyclerally.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Admin;
@@ -25,7 +29,7 @@ import com.rr.recyclerally.model.user.Recycler;
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
+
     private TextInputEditText tietEmail;
     private TextInputEditText tietUsername;
     private TextInputEditText tietPassword;
@@ -38,7 +42,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        auth = FirebaseAuth.getInstance();
         initComponents();
     }
 
@@ -61,23 +64,50 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isValid()) {
-                    AUser user = buildUser();
-                    auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.toast_signup_successful, Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                    signupUser();
                 }
             }
         };
+    }
+
+    private void signupUser() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        AUser user = buildUser();
+        String password = tietPassword.getText().toString().trim();
+        auth.createUserWithEmailAndPassword(user.getEmail(), password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            if (firebaseUser != null) {
+                                String firebaseUserUid = firebaseUser.getUid();
+                                Log.d("Signup", "User created with UID: " + firebaseUserUid);
+                                Log.d("Signup", "Saving user: " + user.toString());
+
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+                                databaseReference.child(firebaseUserUid).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("Signup", "User data saved to database");
+                                            Toast.makeText(getApplicationContext(),
+                                                    R.string.toast_signup_successful, Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            Log.e("Signup", "Failed to save user data to database", task.getException());
+                                            Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        } else {
+                            Log.e("Signup", "Failed to create user", task.getException());
+                            Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private View.OnClickListener getLoginListener() {
@@ -92,15 +122,14 @@ public class SignupActivity extends AppCompatActivity {
     private AUser buildUser() {
         String email = tietEmail.getText().toString().trim();
         String username = tietUsername.getText().toString().trim();
-        String password = tietPassword.getText().toString().trim();
         EUserType userType = rgUserTypes.getCheckedRadioButtonId()
                 == R.id.signup_rb_recycler
                 ? EUserType.RECYCLER
                 : EUserType.ADMIN;
         if (userType == EUserType.RECYCLER) {
-            return new Recycler(email, username, password, userType);
+            return new Recycler(email, username, userType);
         } else {
-            return new Admin(email, username, password, userType);
+            return new Admin(email, username, userType);
         }
     }
 
@@ -129,4 +158,5 @@ public class SignupActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

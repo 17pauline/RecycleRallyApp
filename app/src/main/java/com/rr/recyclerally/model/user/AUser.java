@@ -1,20 +1,21 @@
 package com.rr.recyclerally.model.user;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class AUser {
+public abstract class AUser implements Serializable {
     private String email;
     private String username;
     private String password;
     private EUserType userType;
-    private Date joinDate;
 
-    public AUser(String email, String username, String password, EUserType userType) {
+    public AUser() {
+    }
+
+    public AUser(String email, String username, EUserType userType) {
         this.email = email;
         this.username = username;
-        this.password = password;
         this.userType = userType;
-        this.joinDate = new Date();
     }
 
     public String getEmail() {
@@ -49,23 +50,12 @@ public abstract class AUser {
         this.userType = userType;
     }
 
-    public Date getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
-    }
-
     @Override
     public String toString() {
         return "AUser{" +
                 "email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", userType=" + userType +
-                ", joinDate=" + joinDate +
                 '}';
     }
-
-
 }

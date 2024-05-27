@@ -52,42 +52,43 @@ public class LoginActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = tietUsername.getText().toString().trim();
-                String password = tietPassword.getText().toString().trim();
-                String emailRegex = "^(.+)@(.+)$";
-
-                if (!username.isEmpty() && patternMatches(username, emailRegex)) {
-                    if (!password.isEmpty()) {
-                        auth.signInWithEmailAndPassword(username, password)
-                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                    @Override
-                                    public void onSuccess(AuthResult authResult) {
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getApplicationContext(),
-                                                R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    } else {
-                        tietPassword.setError(getString(R.string.toast_login_invalid_password));
-                    }
-                } else if (username.isEmpty()) {
-                    tietUsername.setError(getString(R.string.toast_login_invalid_email));
-                } else {
-                    tietUsername.setError(getString(R.string.toast_login_please_enter_valid_email));
-                }
+                loginUser();
             }
         };
     }
 
+    private void loginUser() {
+        String username = tietUsername.getText().toString().trim();
+        String password = tietPassword.getText().toString().trim();
+        String emailRegex = "^(.+)@(.+)$";
 
-
+        if (!username.isEmpty() && patternMatches(username, emailRegex)) {
+            if (!password.isEmpty()) {
+                auth.signInWithEmailAndPassword(username, password)
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                tietPassword.setError(getString(R.string.toast_login_invalid_password));
+            }
+        } else if (username.isEmpty()) {
+            tietUsername.setError(getString(R.string.toast_login_invalid_email));
+        } else {
+            tietUsername.setError(getString(R.string.toast_login_please_enter_valid_email));
+        }
+    }
 
 
     private View.OnClickListener getSignupListener() {
