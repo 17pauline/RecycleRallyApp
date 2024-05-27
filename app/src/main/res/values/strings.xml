@@ -80,6 +80,9 @@
     <string name="toast_login_invalid_password">Invalid password.</string>
     <string name="toast_login_invalid_email">Invalid email.</string>
     <string name="toast_login_please_enter_valid_email">Please enter valid email.</string>
+    <string name="exception_this_email_is_already_registered">This email is already registered.</string>
+    <string name="exception_user_does_not_exist_or_is_no_longer_valid">User does not exist or is no longer valid.</string>
+    <string name="exception_invalid_credentials">Invalid credentials.</string>
     <string-array name="user_types">
         <item>Recycler</item>
         <item>Admin</item>

@@ -17,7 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rr.recyclerally.R;
@@ -29,6 +31,7 @@ import com.rr.recyclerally.model.user.Recycler;
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
+    private static final String SIGNUP_TAG = "Signup";
 
     private TextInputEditText tietEmail;
     private TextInputEditText tietUsername;
@@ -82,29 +85,40 @@ public class SignupActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             if (firebaseUser != null) {
                                 String firebaseUserUid = firebaseUser.getUid();
-                                Log.d("Signup", "User created with UID: " + firebaseUserUid);
-                                Log.d("Signup", "Saving user: " + user.toString());
+                                Log.d(SIGNUP_TAG, "User created with UID: " + firebaseUserUid);
+                                Log.d(SIGNUP_TAG, "Saving user: " + user.toString());
 
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
                                 databaseReference.child(firebaseUserUid).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Log.d("Signup", "User data saved to database");
+                                            Log.d(SIGNUP_TAG, "User data saved to database");
                                             Toast.makeText(getApplicationContext(),
                                                     R.string.toast_signup_successful, Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             startActivity(intent);
                                         } else {
-                                            Log.e("Signup", "Failed to save user data to database", task.getException());
-                                            Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            try {
+                                                throw task.getException();
+                                            } catch (Exception e) {
+                                                Log.e(SIGNUP_TAG, e.getMessage());
+                                                Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     }
                                 });
                             }
                         } else {
-                            Log.e("Signup", "Failed to create user", task.getException());
-                            Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthUserCollisionException e) {
+                                tietEmail.setError(getString(R.string.exception_this_email_is_already_registered));
+                                tietEmail.requestFocus();
+                            } catch (Exception e) {
+                                Log.e(SIGNUP_TAG, e.getMessage());
+                                Toast.makeText(getApplicationContext(), getString(R.string.toast_signup_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });

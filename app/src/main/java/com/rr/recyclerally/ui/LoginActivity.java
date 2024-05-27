@@ -2,6 +2,7 @@ package com.rr.recyclerally.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
@@ -11,16 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.rr.recyclerally.R;
 
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String LOGIN_TAG = "Login";
     FirebaseAuth auth;
     private TextInputEditText tietUsername;
     private TextInputEditText tietPassword;
@@ -60,34 +66,31 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser() {
         String username = tietUsername.getText().toString().trim();
         String password = tietPassword.getText().toString().trim();
-        String emailRegex = "^(.+)@(.+)$";
-
-        if (!username.isEmpty() && patternMatches(username, emailRegex)) {
-            if (!password.isEmpty()) {
-                auth.signInWithEmailAndPassword(username, password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                Toast.makeText(getApplicationContext(),
-                                        R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(),
-                                        R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            } else {
-                tietPassword.setError(getString(R.string.toast_login_invalid_password));
+        auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                } else {
+                    try {
+                        throw task.getException();
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        tietUsername.setError(getString(R.string.exception_user_does_not_exist_or_is_no_longer_valid));
+                        tietUsername.requestFocus();
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        tietPassword.setError(getString(R.string.exception_invalid_credentials));
+                        tietPassword.requestFocus();
+                    } catch (Exception e) {
+                        Log.e(LOGIN_TAG, e.getMessage());
+                        Toast.makeText(getApplicationContext(),
+                                R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
-        } else if (username.isEmpty()) {
-            tietUsername.setError(getString(R.string.toast_login_invalid_email));
-        } else {
-            tietUsername.setError(getString(R.string.toast_login_please_enter_valid_email));
-        }
+        });
     }
 
 
@@ -99,11 +102,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
     }
-
-    public static boolean patternMatches(String emailAddress, String regexPattern) {
-        return Pattern.compile(regexPattern)
-                .matcher(emailAddress)
-                .matches();
-    }
-
 }
