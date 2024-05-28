@@ -5,7 +5,7 @@ import com.rr.recyclerally.model.system.Challenge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin extends AUser implements IAdmin {
+public class Admin extends AUser {
     private List<Challenge> challenges;
 
     public Admin() {
@@ -24,7 +24,6 @@ public class Admin extends AUser implements IAdmin {
         this.challenges = challenges;
     }
 
-    @Override
     public void registerChallenge(Challenge challenge) {
         challenges.add(challenge);
         System.out.println(challenge);

@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_home_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new HomeFragment();
                 } else if (item.getItemId() == R.id.nav_items) {
                     Toast.makeText(getApplicationContext(),
@@ -89,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
                             R.string.toast_challenges_are_loading, Toast.LENGTH_SHORT).show();
                     currentFragment = new ChallengesFragment();
                 } else if (item.getItemId() == R.id.nav_profile) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_profile_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new ProfileFragment();
                 }
                 openFragment();
@@ -104,20 +100,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_home_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new HomeFragment();
                 } else if (item.getItemId() == R.id.nav_about) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_about_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new AboutFragment();
                 } else if (item.getItemId() == R.id.nav_tutorial) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_tutorial_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new TutorialFragment();
                 } else if (item.getItemId() == R.id.nav_settings) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_settings_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new SettingsFragment();
                 } else if (item.getItemId() == R.id.nav_logout) {
                     handleLogout();

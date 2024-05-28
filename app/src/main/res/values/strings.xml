@@ -86,6 +86,11 @@
     <string name="item_recycler_username">%1$s</string>
     <string name="item_recycler_position">%1$d.</string>
     <string name="item_recycler_points">%1$d points</string>
+    <string name="dialog_enter_your_email_here">enter your email here</string>
+    <string name="dialog_forgot_your_password">Forgot your password ?</string>
+    <string name="dialog_reset_password">Reset password</string>
+    <string name="dialog_email_sent">Email sent!</string>
+    <string name="dialog_failed_to_send_email">Failed to send email...</string>
     <string-array name="user_types">
         <item>Recycler</item>
         <item>Admin</item>

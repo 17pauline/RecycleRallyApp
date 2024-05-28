@@ -4,17 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +26,6 @@ import com.rr.recyclerally.R;
 import com.rr.recyclerally.database.FirebaseService;
 import com.rr.recyclerally.database.UserSession;
 
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_TAG = "Login";
@@ -37,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private AppCompatButton btnLogin;
     private TextView clickableTvSignup;
+    private TextView clickableTvForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
 
         tietUsername = findViewById(R.id.login_tiet_username);
         tietPassword = findViewById(R.id.login_tiet_password);
+
+        clickableTvForgotPassword = findViewById(R.id.login_tv_forgot_password);
+        clickableTvForgotPassword.setOnClickListener(getForgotPasswordListener());
+
     }
 
     private View.OnClickListener getLoginListener() {
@@ -120,4 +124,53 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
     }
+
+    private View.OnClickListener getForgotPasswordListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showForgotPasswordDialog();
+            }
+        };
+    }
+
+    private void showForgotPasswordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_forgot_password, null);
+        builder.setView(dialogView);
+
+        TextInputEditText tietEmail = dialogView.findViewById(R.id.dialog_tiet_forgot_password_email);
+        AppCompatButton btnResetPw = dialogView.findViewById(R.id.dialog_btn_reset_password);
+
+        AlertDialog dialog = builder.create();
+
+        btnResetPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = tietEmail.getText().toString().trim();
+                if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    tietEmail.setError(getString(R.string.toast_login_invalid_email));
+                    tietEmail.requestFocus();
+                    return;
+                }
+
+                auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(),
+                                    R.string.dialog_email_sent, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    R.string.dialog_failed_to_send_email, Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+        dialog.show();
+    }
+
 }

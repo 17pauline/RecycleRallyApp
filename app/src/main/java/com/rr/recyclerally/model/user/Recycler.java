@@ -5,7 +5,7 @@ import com.rr.recyclerally.model.system.RecycledItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recycler extends AUser implements IRecycler{
+public class Recycler extends AUser {
     private int numberOfPoints;
     private List<RecycledItem> recycledItems;
 
@@ -34,7 +34,6 @@ public class Recycler extends AUser implements IRecycler{
         this.recycledItems = recycledItems;
     }
 
-    @Override
     public void postItem(RecycledItem recycledItem) {
         recycledItems.add(recycledItem);
         this.numberOfPoints+=5;
