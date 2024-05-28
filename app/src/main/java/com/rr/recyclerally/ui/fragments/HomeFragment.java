@@ -3,12 +3,24 @@ package com.rr.recyclerally.ui.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.database.Callback;
+import com.rr.recyclerally.database.FirebaseService;
+import com.rr.recyclerally.database.UserSession;
+import com.rr.recyclerally.model.adapter.RecyclerAdapter;
+import com.rr.recyclerally.model.user.AUser;
+import com.rr.recyclerally.model.user.Recycler;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,51 +28,69 @@ import com.rr.recyclerally.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    private static final String HOME_FRAGMENT_TAG = "HomeFragment";
+    private FirebaseService firebaseService;
+    private TextView tvHello;
+    private RecyclerView rvUsers;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        firebaseService = new FirebaseService();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initComponents(view);
+        return view;
     }
+
+    private void initComponents(View view) {
+        tvHello = view.findViewById(R.id.home_tv_hello_username);
+        rvUsers = view.findViewById(R.id.home_rv_leaderboard);
+
+        rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvUsers.setHasFixedSize(true);
+
+        populateTvHello(view);
+        loadRecyclers();
+    }
+
+    private void loadRecyclers() {
+        firebaseService.getRecyclers(new Callback<List<Recycler>>() {
+            @Override
+            public void runResultOnUiThread(List<Recycler> result) {
+                if (result != null && !result.isEmpty()) {
+                    Log.d(HOME_FRAGMENT_TAG, "Recyclers data retrieved, setting adapter");
+                    RecyclerAdapter adapter = new RecyclerAdapter(result, LayoutInflater.from(getContext()));
+                    rvUsers.setAdapter(adapter);
+                } else {
+                    Log.e(HOME_FRAGMENT_TAG, "Error retrieving recyclers");
+                }
+            }
+        });
+    }
+
+    private void populateTvHello(View view) {
+        AUser user = UserSession.getInstance().getUser();
+        String strUsername = null;
+        if (user != null) {
+            strUsername = view.getContext().getString(R.string.home_hello_username, user.getUsername());
+            tvHello.setText(strUsername);
+        }
+    }
+
+
 }

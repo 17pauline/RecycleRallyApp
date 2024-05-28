@@ -16,6 +16,8 @@ import com.rr.recyclerally.model.user.EUserType;
 import com.rr.recyclerally.model.user.Recycler;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FirebaseService {
@@ -64,6 +66,41 @@ public class FirebaseService {
             }
         });
     }
+
+    // retrieve and sort Recyclers
+    public void getRecyclers(Callback<List<Recycler>> callback) {
+        databaseReference.child(USERS_REFERENCE).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Recycler> recyclers = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    String userTypeStr = userSnapshot.child("userType").getValue(String.class);
+                    EUserType userType = EUserType.valueOf(userTypeStr);
+                    if (userType == EUserType.RECYCLER) {
+                        Recycler recycler = userSnapshot.getValue(Recycler.class);
+                        recyclers.add(recycler);
+                    }
+                }
+
+                // sorting - leaderboard
+                Collections.sort(recyclers, new Comparator<Recycler>() {
+                    @Override
+                    public int compare(Recycler o1, Recycler o2) {
+                        return Integer.compare(o2.getNumberOfPoints(), o1.getNumberOfPoints());
+                    }
+                });
+                callback.runResultOnUiThread(recyclers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(FIREBASE_SERVICE_TAG, "Recyclers data unavailable");
+                callback.runResultOnUiThread(null);
+            }
+        });
+    }
+
+
 
     // POSTS - RECYCLED ITEMS
     // insert / update post

@@ -18,7 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.database.UserSession;
 import com.rr.recyclerally.ui.fragments.AboutFragment;
 import com.rr.recyclerally.ui.fragments.ChallengesFragment;
 import com.rr.recyclerally.ui.fragments.HomeFragment;
@@ -118,15 +120,22 @@ public class MainActivity extends AppCompatActivity {
                             R.string.toast_settings_is_selected, Toast.LENGTH_SHORT).show();
                     currentFragment = new SettingsFragment();
                 } else if (item.getItemId() == R.id.nav_logout) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_logging_out, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), StartActivity.class));
+                    handleLogout();
                 }
                 openFragment();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         };
+    }
+
+    private void handleLogout() {
+        UserSession.getInstance().clear();
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(getApplicationContext(),
+                R.string.toast_logging_out, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), StartActivity.class));
+        finish();
     }
 
     private void configNavigation() {

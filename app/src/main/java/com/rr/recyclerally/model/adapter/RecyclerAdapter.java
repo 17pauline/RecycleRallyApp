@@ -1,0 +1,65 @@
+package com.rr.recyclerally.model.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.rr.recyclerally.R;
+import com.rr.recyclerally.model.user.Recycler;
+
+import java.util.List;
+
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
+    private List<Recycler> recyclers;
+    private LayoutInflater layoutInflater;
+
+    public RecyclerAdapter(List<Recycler> recyclers, LayoutInflater layoutInflater) {
+        this.recyclers = recyclers;
+        this.layoutInflater = layoutInflater;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.inflate(R.layout.item_recycler, parent, false);
+        return new RecyclerViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        Recycler recycler = recyclers.get(position);
+
+        holder.tvPosition.setText(String.valueOf(position + 1));
+        holder.tvUsername.setText(recycler.getUsername());
+        holder.tvPoints.setText(String.format(holder.itemView.getContext().getString(R.string.item_recycler_points), recycler.getNumberOfPoints()));
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return recyclers.size();
+    }
+
+
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        AppCompatImageView ivProfileImage;
+        TextView tvPosition, tvUsername, tvPoints;
+
+        public RecyclerViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ivProfileImage = itemView.findViewById(R.id.item_iv_profileImage);
+            tvPosition = itemView.findViewById(R.id.item_tv_position);
+            tvUsername = itemView.findViewById(R.id.item_tv_username);
+            tvPoints = itemView.findViewById(R.id.item_tv_points);
+        }
+    }
+
+}

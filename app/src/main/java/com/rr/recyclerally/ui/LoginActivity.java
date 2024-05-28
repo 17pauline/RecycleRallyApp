@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.database.FirebaseService;
+import com.rr.recyclerally.database.UserSession;
 
 import java.util.regex.Pattern;
 
@@ -78,10 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                         String firebaseUserUid = firebaseUser.getUid();
                         firebaseService.getUser(firebaseUserUid, user -> {
                             if (user != null) {
+                                UserSession.getInstance().setUser(user);
                                 Toast.makeText(getApplicationContext(),
                                         R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.putExtra("USERNAME", user.getUsername());
                                 startActivity(intent);
                                 finish();
                             }

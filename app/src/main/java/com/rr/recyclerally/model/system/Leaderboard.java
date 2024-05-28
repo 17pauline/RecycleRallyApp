@@ -13,7 +13,6 @@ public class Leaderboard {
         leaderboard.put(recycler, recycler.getNumberOfPoints());
     }
     public static void displayLeaderboard() {
-        System.out.println("-- Leaderboard --");
         for (Map.Entry<Recycler, Integer> entry : leaderboard.entrySet()) {
             System.out.println(entry.getKey().getUsername() + " - " + entry.getValue() + " points");
         }

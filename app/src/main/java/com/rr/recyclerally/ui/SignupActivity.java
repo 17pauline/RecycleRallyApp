@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.database.FirebaseService;
+import com.rr.recyclerally.database.UserSession;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Admin;
 import com.rr.recyclerally.model.user.EUserType;
@@ -94,6 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                                 firebaseService.saveUser(user, firebaseUserUid, result -> {
                                     if (result) {
                                         Log.d(SIGNUP_TAG, "User data saved to database");
+                                        UserSession.getInstance().setUser(user);
                                         Toast.makeText(getApplicationContext(),
                                                 R.string.toast_signup_successful, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
