@@ -8,6 +8,7 @@ public abstract class AUser implements Serializable {
     private String username;
     private String password;
     private EUserType userType;
+    private String imageURL;
 
     public AUser() {
     }
@@ -16,6 +17,7 @@ public abstract class AUser implements Serializable {
         this.email = email;
         this.username = username;
         this.userType = userType;
+        this.imageURL = "";
     }
 
     public String getEmail() {
@@ -48,6 +50,14 @@ public abstract class AUser implements Serializable {
 
     public void setUserType(EUserType userType) {
         this.userType = userType;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Override

@@ -21,13 +21,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.database.FirebaseService;
 
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_TAG = "Login";
     FirebaseAuth auth;
+    private FirebaseService firebaseService = new FirebaseService();
     private TextInputEditText tietUsername;
     private TextInputEditText tietPassword;
 
@@ -70,27 +73,41 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                } else {
-                    try {
-                        throw task.getException();
-                    } catch (FirebaseAuthInvalidUserException e) {
-                        tietUsername.setError(getString(R.string.exception_user_does_not_exist_or_is_no_longer_valid));
-                        tietUsername.requestFocus();
-                    } catch (FirebaseAuthInvalidCredentialsException e) {
-                        tietPassword.setError(getString(R.string.exception_invalid_credentials));
-                        tietPassword.requestFocus();
-                    } catch (Exception e) {
-                        Log.e(LOGIN_TAG, e.getMessage());
-                        Toast.makeText(getApplicationContext(),
-                                R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    if (firebaseUser != null) {
+                        String firebaseUserUid = firebaseUser.getUid();
+                        firebaseService.getUser(firebaseUserUid, user -> {
+                            if (user != null) {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.putExtra("USERNAME", user.getUsername());
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
                     }
+                } else {
+                    handleLoginError(task);
                 }
             }
         });
+    }
+
+    private void handleLoginError(@NonNull Task<AuthResult> task) {
+        try {
+            throw task.getException();
+        } catch (FirebaseAuthInvalidUserException e) {
+            tietUsername.setError(getString(R.string.exception_user_does_not_exist_or_is_no_longer_valid));
+            tietUsername.requestFocus();
+        } catch (FirebaseAuthInvalidCredentialsException e) {
+            tietPassword.setError(getString(R.string.exception_invalid_credentials));
+            tietPassword.requestFocus();
+        } catch (Exception e) {
+            Log.e(LOGIN_TAG, e.getMessage());
+            Toast.makeText(getApplicationContext(),
+                    R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
+        }
     }
 
 

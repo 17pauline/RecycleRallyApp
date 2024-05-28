@@ -9,6 +9,9 @@ public class Recycler extends AUser implements IRecycler{
     private int numberOfPoints;
     private List<RecycledItem> recycledItems;
 
+    public Recycler() {
+    }
+
     public Recycler(String email, String username, EUserType userType) {
         super(email, username, userType);
         this.numberOfPoints++;
