@@ -38,6 +38,12 @@ public class FirebaseService {
                 .addOnCompleteListener(task -> callback.runResultOnUiThread(task.isSuccessful()));
     }
 
+    // update user profile image
+    public void updateUserProfileImage(String userId, String imageURL, Callback<Boolean> callback) {
+        databaseReference.child(USERS_REFERENCE).child(userId).child("imageURL").setValue(imageURL)
+                .addOnCompleteListener(task -> callback.runResultOnUiThread(task.isSuccessful()));
+    }
+
     // retrieve user
     public void getUser(String userId, Callback<AUser> callback) {
         databaseReference.child(USERS_REFERENCE).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.model.user.Recycler;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,6 +43,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.tvUsername.setText(recycler.getUsername());
         holder.tvPoints.setText(String.format(holder.itemView.getContext().getString(R.string.item_recycler_points), recycler.getNumberOfPoints()));
 
+        if (recycler.getImageURL() != null && !recycler.getImageURL().isEmpty()) {
+            Picasso.get().load(recycler.getImageURL()).placeholder(R.drawable.pfp_100px).into(holder.ivProfileImage);
+        } else {
+            holder.ivProfileImage.setImageResource(R.drawable.pfp_100px);
+        }
     }
 
     @Override
@@ -56,6 +63,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.item_iv_profileImage);
+            ivProfileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             tvPosition = itemView.findViewById(R.id.item_tv_position);
             tvUsername = itemView.findViewById(R.id.item_tv_username);
             tvPoints = itemView.findViewById(R.id.item_tv_points);
