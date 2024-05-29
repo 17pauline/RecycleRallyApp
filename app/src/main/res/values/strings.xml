@@ -96,8 +96,22 @@
     <string name="toast_profile_image_updated">Profile image updated</string>
     <string name="toast_failed_to_update_profile_image">Failed to update profile image</string>
     <string name="toast_no_file_selected">No file selected</string>
+    <string name="item_recycled_registered">Registered in Challenge: %1$s</string>
+    <string name="item_recycled_date_posted">Date Posted: %1$s</string>
+    <string name="item_recycled_type">Item Type: %1$s</string>
+    <string name="add_post_algorithm_classification">Algorithm classification: %1$s</string>
+    <string name="add_post_recycle_item">Recycle item</string>
+    <string name="description_uploaded_item_image">Uploaded Item Image</string>
     <string-array name="user_types">
         <item>Recycler</item>
         <item>Admin</item>
+    </string-array>
+    <string-array name="item_types">
+        <item>CARDBOARD</item>
+        <item>GLASS</item>
+        <item>METAL</item>
+        <item>PAPER</item>
+        <item>PLASTIC</item>
+        <item>TRASH</item>
     </string-array>
 </resources>

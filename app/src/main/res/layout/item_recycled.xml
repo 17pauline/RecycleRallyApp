@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/white_blue_gradient">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_recycled_iv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/item_recycled_tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/item_recycled_type"
+        style="@style/TextSmall"/>
+
+    <TextView
+        android:id="@+id/item_recycled_tv_datePosted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_recycled_date_posted"
+        style="@style/TextSmall"/>
+
+    <TextView
+        android:id="@+id/item_recycled_tv_RegisteredInChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_recycled_registered"
+        style="@style/TextSmall"/>
+</LinearLayout>

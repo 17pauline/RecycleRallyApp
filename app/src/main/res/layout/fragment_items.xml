@@ -30,8 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/items_iv_bookmark"/>
 
-    <ScrollView
-        android:id="@+id/items_sv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/items_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="16dp"

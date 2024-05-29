@@ -21,6 +21,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.database.UserSession;
+import com.rr.recyclerally.model.user.AUser;
+import com.rr.recyclerally.model.user.Recycler;
 import com.rr.recyclerally.ui.fragments.AboutFragment;
 import com.rr.recyclerally.ui.fragments.ChallengesFragment;
 import com.rr.recyclerally.ui.fragments.HomeFragment;
@@ -146,7 +148,13 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AUser user = UserSession.getInstance().getUser();
+                if (user instanceof Recycler) {
+                    Intent intent = new Intent(getApplicationContext(), AddPostActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Admin functionality to be implemented", Toast.LENGTH_SHORT).show();
+                }
             }
         };
     }
