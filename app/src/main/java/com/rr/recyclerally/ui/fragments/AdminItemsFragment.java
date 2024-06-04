@@ -1,0 +1,43 @@
+package com.rr.recyclerally.ui.fragments;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.rr.recyclerally.R;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AdminItemsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class AdminItemsFragment extends Fragment {
+
+
+
+
+    public AdminItemsFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static AdminItemsFragment newInstance() {
+        return new AdminItemsFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_admin_items, container, false);
+    }
+}

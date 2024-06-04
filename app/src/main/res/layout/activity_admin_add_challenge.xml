@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/admin_add_challenge_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add_challenge_make_a_challenge"
+        style="@style/Subtitles"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/admin_add_challenge_tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_challenge_text"
+        style="@style/TextRegularBold"
+        android:gravity="center"
+
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_add_challenge_til_itemsNumber"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/admin_add_challenge_tiet_itemsNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_challenge_number_of_items"
+            android:inputType="number"
+            style="@style/TextInputLayoutStyle"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/admin_add_challenge_itemType"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:entries="@array/item_types"
+        android:minHeight="48dp"
+        android:layout_gravity="center"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_add_challenge_til_start_date"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/admin_add_challenge_tiet_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/challenge_start_date"
+            android:inputType="date"
+            style="@style/TextInputLayoutStyle"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_add_challenge_til_end_date"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/admin_add_challenge_tiet_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/challenge_end_date"
+            android:inputType="date"
+            style="@style/TextInputLayoutStyle"
+            android:textAlignment="center"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/admin_add_challenge_btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
+        style="@style/ButtonsRegular"
+        android:text="@string/add_challenge_ready_set_go"
+
+        />
+
+</LinearLayout>

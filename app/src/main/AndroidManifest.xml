@@ -17,6 +17,9 @@
         android:theme="@style/Theme.RecycleRally"
         tools:targetApi="31">
         <activity
+            android:name=".ui.AdminAddChallengeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.AddPostActivity"
             android:exported="false" />
         <activity

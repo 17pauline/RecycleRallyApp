@@ -90,7 +90,7 @@
     <string name="dialog_forgot_your_password">Forgot your password ?</string>
     <string name="dialog_reset_password">Reset password</string>
     <string name="dialog_email_sent">Email sent!</string>
-    <string name="dialog_failed_to_send_email">Failed to send email...</string>
+    <string name="dialog_failed_to_send_email">Failed to send email…</string>
     <string name="dialog_no">NO</string>
     <string name="dialog_yes">YES</string>
     <string name="toast_profile_image_updated">Profile image updated</string>
@@ -114,4 +114,12 @@
         <item>PLASTIC</item>
         <item>TRASH</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_challenge_ready_set_go">Ready, set… go!</string>
+    <string name="add_challenge_make_a_challenge">Make a Challenge</string>
+    <string name="challenge_start_date">start date</string>
+    <string name="challenge_end_date">end date</string>
+    <string name="add_challenge_text">Challenge the community to recycle a number of items of a certain type</string>
+    <string name="add_challenge_number_of_items">number of items</string>
 </resources>
