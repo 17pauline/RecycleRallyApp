@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/rounded_item_challenge">
+
+    <TextView
+        android:id="@+id/item_challenge_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_challenge_text"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        style="@style/TextMediumBold"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/item_challenge_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_challenge_start_date"
+        android:layout_gravity="center"
+        style="@style/TextMediumItalic"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/item_challenge_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_challenge_end_date"
+        android:layout_gravity="center"
+        style="@style/TextMediumItalic"
+        android:textColor="@color/white"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/item_challenge_join"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        style="@style/ButtonsRegular"
+        android:text="@string/item_challenge_join"
+        />
+
+</LinearLayout>

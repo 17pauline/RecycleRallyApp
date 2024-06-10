@@ -4,11 +4,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#F0F0F0F0</color>
 
-    <color name="yellow_1">#F2EE9D</color>
+    <color name="beige">#FFE8C5</color>
+    <color name="red">#DD0000</color>
+    <color name="peach">#FFA27F</color>
+    <color name="green">#97BE5A</color>
     <color name="olive">#A2CD74</color>
-    <color name="blue_violet">#4757A5</color>
     <color name="light_blue">#C0D6E8</color>
 
-    <color name="green_1">#7A9D54</color>
-    <color name="green_2">#557A46</color>
+    <color name="transparent">#00000000</color>
 </resources>

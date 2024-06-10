@@ -122,4 +122,9 @@
     <string name="challenge_end_date">end date</string>
     <string name="add_challenge_text">Challenge the community to recycle a number of items of a certain type</string>
     <string name="add_challenge_number_of_items">number of items</string>
+    <string name="item_challenge_start_date">Start date: %1$s</string>
+    <string name="item_challenge_end_date">End date: %1$s</string>
+    <string name="item_challenge_text">Recycle %1$d %2$s items</string>
+    <string name="item_challenge_join">Join</string>
+    <string name="admin_items_posted_items">Posted items</string>
 </resources>

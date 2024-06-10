@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_blue_gradient"
+    android:background="@color/white"
     tools:context=".ui.fragments.ProfileFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_iv_pfp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pfp_100px"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/star_24px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.2"
-        android:background="@drawable/circular_image"
         android:scaleType="centerCrop"
+        app:shapeAppearance="@style/Circle"
         />
 
     <TextView

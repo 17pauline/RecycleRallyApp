@@ -20,6 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,7 +40,7 @@ public class AddPostActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseStorage storage;
     private StorageReference storageReference;
-    private AppCompatImageView ivPost;
+    private ShapeableImageView ivPost;
     private TextView tvResult;
     private AppCompatSpinner spnItemType;
     private AppCompatButton btnSavePost;

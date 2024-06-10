@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private Uri imageUri;
-    private AppCompatImageView ivProfileImage;
+    private ShapeableImageView ivProfileImage;
     private TextView tvUsername;
     private TextView tvPoints;
 

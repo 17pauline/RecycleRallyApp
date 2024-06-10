@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_blue"
+            android:background="@color/white"
             app:popupTheme="@style/Theme.RecycleRally.PopupOverlay"/>
     </com.google.android.material.appbar.AppBarLayout>
 

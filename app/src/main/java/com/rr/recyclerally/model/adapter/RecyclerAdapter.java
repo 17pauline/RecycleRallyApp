@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.model.user.Recycler;
 import com.squareup.picasso.Picasso;
@@ -57,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        AppCompatImageView ivProfileImage;
+        ShapeableImageView ivProfileImage;
         TextView tvPosition, tvUsername, tvPoints;
 
         public RecyclerViewHolder(@NonNull View itemView) {

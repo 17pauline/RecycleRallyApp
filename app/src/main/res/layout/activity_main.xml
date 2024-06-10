@@ -24,10 +24,10 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
-        android:background="@drawable/blue_green_gradient"
+        android:background="@color/white"
         app:itemTextAppearance="@style/Text2Bold"
         app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
+        app:itemIconTint="@color/red"
         app:itemIconSize="32dp"
         app:itemIconPadding="32dp"/>
 

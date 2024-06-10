@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_green_gradient"
+    android:background="@color/olive"
     tools:context=".ui.StartActivity">
 
     <TextView
@@ -91,7 +91,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp"
         android:text="@string/start_recycling_diary"
-
         style="@style/WelcomeSubtitles"
         />
 

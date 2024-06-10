@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_blue_gradient"
+    android:background="@color/white"
     tools:context=".ui.SignupActivity">
 
     <TextView
@@ -102,7 +102,7 @@
 
     <RadioGroup
         android:id="@+id/signup_rg_user_types"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
@@ -137,7 +137,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_btn_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
