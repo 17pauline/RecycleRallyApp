@@ -1,6 +1,8 @@
 package com.rr.recyclerally.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.rr.recyclerally.ui.fragments.SettingsFragment;
 import com.rr.recyclerally.ui.fragments.TutorialFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String PREFS_NAME = "RecycleRallyPrefs";
 
     private FloatingActionButton fabAdd;
     private DrawerLayout drawerLayout;
@@ -122,10 +125,20 @@ public class MainActivity extends AppCompatActivity {
     private void handleLogout() {
         UserSession.getInstance().clear();
         FirebaseAuth.getInstance().signOut();
+
+        clearSharedPreferences();
+
         Toast.makeText(getApplicationContext(),
                 R.string.toast_logging_out, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), StartActivity.class));
         finish();
+    }
+
+    private void clearSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
     private void configNavigation() {

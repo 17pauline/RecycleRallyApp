@@ -6,8 +6,8 @@
 
         <!--
         COLOURS
-        Text: #000000
-        Background: #ffffff
+        Text: Black #FF000000
+        Background: White #FFFFFFFF, Olive #A2CD74
         Primary: #94e6bb
         Secondary: #d1f8ff
         Accent: #32855d
@@ -104,6 +104,17 @@
         <item name="android:backgroundTint">@color/white</item>
         <item name="strokeColor">@color/black</item>
         <item name="strokeWidth">5dip</item>
+    </style>
+
+
+    <style name="ButtonsMedium">
+        <item name="android:width">300dp</item>
+        <item name="android:height">50dp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button_states</item>
     </style>
 
     <!-- EDIT TEXT -->

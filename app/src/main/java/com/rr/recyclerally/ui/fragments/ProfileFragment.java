@@ -171,11 +171,11 @@ public class ProfileFragment extends Fragment {
             if (user.getImageURL() != null && !user.getImageURL().isEmpty()) {
                 // load image into iv
                 Log.d(PROFILE_FRAGMENT_TAG, "Loaded image URL on profile " + user.getImageURL());
-                Picasso.get().load(user.getImageURL()).placeholder(R.drawable.pfp_100px).into(ivProfileImage);
+                Picasso.get().load(user.getImageURL()).placeholder(R.drawable.star_150px).into(ivProfileImage);
 
             } else {
                 Log.d(PROFILE_FRAGMENT_TAG, "Image URL is empty or null");
-                ivProfileImage.setImageResource(R.drawable.pfp_100px);
+                ivProfileImage.setImageResource(R.drawable.star_150px);
             }
         } else {
             Log.d(PROFILE_FRAGMENT_TAG, "User is unavailable");

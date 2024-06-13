@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_til_username"
+        android:id="@+id/login_til_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,11 +34,11 @@
         style="@style/TextInputLayoutStyle"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_tiet_username"
+            android:id="@+id/login_tiet_email"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="@string/login_username"
+            android:hint="@string/login_email"
             style="@style/TextInputEditTextStyle" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_til_username"
+        app:layout_constraintTop_toBottomOf="@id/login_til_email"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginTop="16dp"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@id/login_til_password" />
 
     <CheckBox
-        android:id="@+id/login_remember_me"
+        android:id="@+id/login_cbox_remember_me"
         style="@style/TextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

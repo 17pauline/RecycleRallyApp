@@ -1,11 +1,14 @@
 package com.rr.recyclerally.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +32,14 @@ import com.rr.recyclerally.database.UserSession;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_TAG = "Login";
+    private static final String PREFS_NAME = "RecycleRallyPrefs";
+    private static final String PREFS_REMEMBER_ME = "rememberMe";
+    private static final String PREF_USER_ID = "userId";
     FirebaseAuth auth;
     private FirebaseService firebaseService = new FirebaseService();
-    private TextInputEditText tietUsername;
+    private TextInputEditText tietEmail;
     private TextInputEditText tietPassword;
-
+    private CheckBox checkBoxRememberMe;
     private AppCompatButton btnLogin;
     private TextView clickableTvSignup;
     private TextView clickableTvForgotPassword;
@@ -54,8 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         clickableTvSignup = findViewById(R.id.login_tv_sign_up);
         clickableTvSignup.setOnClickListener(getSignupListener());
 
-        tietUsername = findViewById(R.id.login_tiet_username);
+        tietEmail = findViewById(R.id.login_tiet_email);
         tietPassword = findViewById(R.id.login_tiet_password);
+
+        checkBoxRememberMe = findViewById(R.id.login_cbox_remember_me);
 
         clickableTvForgotPassword = findViewById(R.id.login_tv_forgot_password);
         clickableTvForgotPassword.setOnClickListener(getForgotPasswordListener());
@@ -72,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-        String username = tietUsername.getText().toString().trim();
+        String username = tietEmail.getText().toString().trim();
         String password = tietPassword.getText().toString().trim();
         auth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -84,6 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                         firebaseService.getUser(firebaseUserUid, user -> {
                             if (user != null) {
                                 UserSession.getInstance().setUser(user);
+                                if (checkBoxRememberMe.isChecked()) {
+                                    saveLoginInfo(firebaseUserUid);
+                                }
                                 Toast.makeText(getApplicationContext(),
                                         R.string.toast_login_successful, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -99,12 +110,20 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void saveLoginInfo(String firebaseUserUid) {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREFS_REMEMBER_ME, true);
+        editor.putString(PREF_USER_ID, firebaseUserUid);
+        editor.apply();
+    }
+
     private void handleLoginError(@NonNull Task<AuthResult> task) {
         try {
             throw task.getException();
         } catch (FirebaseAuthInvalidUserException e) {
-            tietUsername.setError(getString(R.string.exception_user_does_not_exist_or_is_no_longer_valid));
-            tietUsername.requestFocus();
+            tietEmail.setError(getString(R.string.exception_user_does_not_exist_or_is_no_longer_valid));
+            tietEmail.requestFocus();
         } catch (FirebaseAuthInvalidCredentialsException e) {
             tietPassword.setError(getString(R.string.exception_invalid_credentials));
             tietPassword.requestFocus();
@@ -140,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_forgot_password, null);
         builder.setView(dialogView);
 
-        TextInputEditText tietEmail = dialogView.findViewById(R.id.dialog_tiet_forgot_password_email);
+        TextInputEditText tietEmailDialog = dialogView.findViewById(R.id.dialog_tiet_forgot_password_email);
         AppCompatButton btnResetPw = dialogView.findViewById(R.id.dialog_btn_reset_password);
 
         AlertDialog dialog = builder.create();
@@ -148,10 +167,10 @@ public class LoginActivity extends AppCompatActivity {
         btnResetPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = tietEmail.getText().toString().trim();
+                String email = tietEmailDialog.getText().toString().trim();
                 if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    tietEmail.setError(getString(R.string.toast_login_invalid_email));
-                    tietEmail.requestFocus();
+                    tietEmailDialog.setError(getString(R.string.toast_login_invalid_email));
+                    tietEmailDialog.requestFocus();
                     return;
                 }
 
