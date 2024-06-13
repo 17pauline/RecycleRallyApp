@@ -2,6 +2,8 @@ package com.rr.recyclerally.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,8 +11,13 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,8 +57,9 @@ public class ProfileFragment extends Fragment {
     private ShapeableImageView ivProfileImage;
     private TextView tvUsername;
     private TextView tvPoints;
-
+    private FusedLocationProviderClient fusedLocationClient;
     private ActivityResultLauncher<Intent> launcherChooseFile;
+    AppCompatImageView ivMap;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -74,10 +85,22 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initComponents(view);
+        setUpMapPreviewClickListener(view);
         return view;
+    }
+
+    private void setUpMapPreviewClickListener(View view) {
+        ivMap = view.findViewById(R.id.profile_iv_map);
+        ivMap.setOnClickListener(v -> {
+            Uri gmmIntentUri = Uri.parse("geo:44.4268,26.1025?q=recycling points");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
+        });
     }
 
     @Override
@@ -90,14 +113,23 @@ public class ProfileFragment extends Fragment {
         ivProfileImage = view.findViewById(R.id.profile_iv_pfp);
         tvUsername = view.findViewById(R.id.profile_tv_username);
         tvPoints = view.findViewById(R.id.profile_tv_points);
+        ivMap = view.findViewById(R.id.profile_iv_map);
+
+        if (ivMap == null) {
+            Log.e(PROFILE_FRAGMENT_TAG, getString(R.string.log_check_map_iv_population));
+            return;
+        }
 
         ivProfileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         populateUserDetails(view);
 
         ivProfileImage.setOnClickListener(v -> openFileChooser());
 
+
     }
 
+
+    // USER DETAILS - profile picture, populating user details
     private ActivityResultCallback<ActivityResult> getChooseImageCallback() {
         return result -> {
             if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
@@ -181,4 +213,5 @@ public class ProfileFragment extends Fragment {
             Log.d(PROFILE_FRAGMENT_TAG, "User is unavailable");
         }
     }
+
 }

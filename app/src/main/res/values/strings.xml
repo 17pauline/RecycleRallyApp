@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">RecycleRally</string>
+    <string name="google_geo_API_KEY">AIzaSyCWn-NNjpOV1XJrclOeZnBAiTzSEQhtN4U</string>
     <string name="open_navigation_drawer">Open navigation drawer</string>
     <string name="close_navigation_drawer">Close navigation drawer</string>
     <string name="start_app_welcome_title">Welcome to</string>
@@ -129,4 +130,10 @@
     <string name="admin_items_posted_items">Posted items</string>
     <string name="item_challenge_view_participants">Participants</string>
     <string name="login_email">email</string>
+    <string name="profile_recycling_points_near_you">Recycling points near you:</string>
+    <string name="description_map_preview_leading_to_recycling_points_nearby">map preview leading to recycling points nearby</string>
+    <string name="toast_location_required">Location permission is required to show nearby recycling centers.</string>
+    <string name="toast_could_not_retrieve_your_location">Could not retrieve your location.</string>
+    <string name="toast_google_maps_app_is_not_installed">Google Maps app is not installed</string>
+    <string name="log_check_map_iv_population">ivMap is null. Check the XML layout and ensure the ID is correct.</string>
 </resources>
