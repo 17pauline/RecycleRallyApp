@@ -26,6 +26,8 @@ import com.rr.recyclerally.database.UserSession;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Recycler;
 import com.rr.recyclerally.ui.fragments.AboutFragment;
+import com.rr.recyclerally.ui.fragments.AdminChallengesFragment;
+import com.rr.recyclerally.ui.fragments.AdminItemsFragment;
 import com.rr.recyclerally.ui.fragments.ChallengesFragment;
 import com.rr.recyclerally.ui.fragments.HomeFragment;
 import com.rr.recyclerally.ui.fragments.ItemsFragment;
@@ -86,11 +88,19 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.nav_items) {
                     Toast.makeText(getApplicationContext(),
                             R.string.toast_items_are_loading, Toast.LENGTH_SHORT).show();
-                    currentFragment = new ItemsFragment();
+                    if (UserSession.getInstance().isRecycler()) {
+                        currentFragment = new ItemsFragment();
+                    } else {
+                        currentFragment = new AdminItemsFragment();
+                    }
                 } else if (item.getItemId() == R.id.nav_challenges) {
                     Toast.makeText(getApplicationContext(),
                             R.string.toast_challenges_are_loading, Toast.LENGTH_SHORT).show();
-                    currentFragment = new ChallengesFragment();
+                    if (UserSession.getInstance().isRecycler()) {
+                        currentFragment = new ChallengesFragment();
+                    } else {
+                        currentFragment = new AdminChallengesFragment();
+                    }
                 } else if (item.getItemId() == R.id.nav_profile) {
                     currentFragment = new ProfileFragment();
                 }

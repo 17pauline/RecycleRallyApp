@@ -1,6 +1,7 @@
 package com.rr.recyclerally.database;
 
 import com.rr.recyclerally.model.user.AUser;
+import com.rr.recyclerally.model.user.Admin;
 import com.rr.recyclerally.model.user.Recycler;
 
 public class UserSession {
@@ -40,6 +41,17 @@ public class UserSession {
     public Recycler getRecycler() {
         if (isRecycler()) {
             return (Recycler) user;
+        }
+        return null;
+    }
+
+    public boolean isAdmin() {
+        return user instanceof Admin;
+    }
+
+    public Admin getAdmin() {
+        if (isAdmin()) {
+            return (Admin) user;
         }
         return null;
     }

@@ -130,10 +130,16 @@
     <string name="admin_items_posted_items">Posted items</string>
     <string name="item_challenge_view_participants">Participants</string>
     <string name="login_email">email</string>
-    <string name="profile_recycling_points_near_you">Recycling points near you:</string>
+    <string name="profile_recycling_points_near_you">Recycling locations near you:</string>
     <string name="description_map_preview_leading_to_recycling_points_nearby">map preview leading to recycling points nearby</string>
     <string name="toast_location_required">Location permission is required to show nearby recycling centers.</string>
     <string name="toast_could_not_retrieve_your_location">Could not retrieve your location.</string>
     <string name="toast_google_maps_app_is_not_installed">Google Maps app is not installed</string>
     <string name="log_check_map_iv_population">ivMap is null. Check the XML layout and ensure the ID is correct.</string>
+    <string name="dialog_upload_new_profile_image">Upload new profile image</string>
+    <string name="dialog_apply_changes">Apply changes?</string>
+    <string name="log_image_url_is_empty_or_null">Image URL is empty or null</string>
+    <string name="log_user_is_unavailable">User is unavailable</string>
+    <string name="log_loaded_image_url_on_profile">"Loaded image URL on profile "</string>
+    <string name="profile_admin">Admin</string>
 </resources>

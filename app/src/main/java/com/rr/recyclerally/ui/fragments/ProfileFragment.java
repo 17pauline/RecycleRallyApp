@@ -48,7 +48,9 @@ import com.squareup.picasso.Picasso;
  */
 public class ProfileFragment extends Fragment {
     private static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
+    private static final String GMM_URI = "geo:44.4268,26.1025?q=recycling points";
     private static final int PICK_IMAGE_REQUEST = 1;
+    public static final String COM_GOOGLE_ANDROID_APPS_MAPS = "com.google.android.apps.maps";
     private FirebaseAuth auth;
     private FirebaseService firebaseService;
     private FirebaseStorage storage;
@@ -94,9 +96,9 @@ public class ProfileFragment extends Fragment {
     private void setUpMapPreviewClickListener(View view) {
         ivMap = view.findViewById(R.id.profile_iv_map);
         ivMap.setOnClickListener(v -> {
-            Uri gmmIntentUri = Uri.parse("geo:44.4268,26.1025?q=recycling points");
+            Uri gmmIntentUri = Uri.parse(GMM_URI);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
+            mapIntent.setPackage(COM_GOOGLE_ANDROID_APPS_MAPS);
             if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(mapIntent);
             }
@@ -115,17 +117,10 @@ public class ProfileFragment extends Fragment {
         tvPoints = view.findViewById(R.id.profile_tv_points);
         ivMap = view.findViewById(R.id.profile_iv_map);
 
-        if (ivMap == null) {
-            Log.e(PROFILE_FRAGMENT_TAG, getString(R.string.log_check_map_iv_population));
-            return;
-        }
-
         ivProfileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         populateUserDetails(view);
 
         ivProfileImage.setOnClickListener(v -> openFileChooser());
-
-
     }
 
 
@@ -142,8 +137,8 @@ public class ProfileFragment extends Fragment {
 
     private void confirmImageUpload() {
         new AlertDialog.Builder(getContext())
-                .setTitle("Upload new profile image")
-                .setMessage("Apply changes?")
+                .setTitle(R.string.dialog_upload_new_profile_image)
+                .setMessage(R.string.dialog_apply_changes)
                 .setPositiveButton(R.string.dialog_yes, ((dialog, which) -> uploadImage()))
                 .setNegativeButton(R.string.dialog_no, null)
                 .show();
@@ -198,19 +193,21 @@ public class ProfileFragment extends Fragment {
             if (UserSession.getInstance().isRecycler()) {
                 strPoints = view.getContext().getString(R.string.profile_points, UserSession.getInstance().getRecycler().getNumberOfPoints());
                 tvPoints.setText(strPoints);
+            } else {
+                tvPoints.setText(R.string.profile_admin);
             }
 
             if (user.getImageURL() != null && !user.getImageURL().isEmpty()) {
                 // load image into iv
-                Log.d(PROFILE_FRAGMENT_TAG, "Loaded image URL on profile " + user.getImageURL());
+                Log.d(PROFILE_FRAGMENT_TAG, getString(R.string.log_loaded_image_url_on_profile) + user.getImageURL());
                 Picasso.get().load(user.getImageURL()).placeholder(R.drawable.star_150px).into(ivProfileImage);
 
             } else {
-                Log.d(PROFILE_FRAGMENT_TAG, "Image URL is empty or null");
+                Log.d(PROFILE_FRAGMENT_TAG, getString(R.string.log_image_url_is_empty_or_null));
                 ivProfileImage.setImageResource(R.drawable.star_150px);
             }
         } else {
-            Log.d(PROFILE_FRAGMENT_TAG, "User is unavailable");
+            Log.d(PROFILE_FRAGMENT_TAG, getString(R.string.log_user_is_unavailable));
         }
     }
 
