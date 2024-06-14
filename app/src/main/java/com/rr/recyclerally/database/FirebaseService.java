@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rr.recyclerally.model.system.Challenge;
 import com.rr.recyclerally.model.system.RecycledItem;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Admin;
@@ -24,6 +25,7 @@ public class FirebaseService {
     public static final String FIREBASE_SERVICE_TAG = "FirebaseService";
     public static final String USERS_REFERENCE = "users";
     public static final String POSTS_REFERENCE = "posts";
+    public static final String CHALLENGES_REFERENCE = "challenges";
 
     private DatabaseReference databaseReference;
 
@@ -135,5 +137,43 @@ public class FirebaseService {
             }
         });
     }
+
+    // CHALLENGES
+    public void addChallenge(Challenge challenge, Callback<Boolean> callback) {
+        String challengeId = databaseReference.child(CHALLENGES_REFERENCE).push().getKey();
+        if (challengeId != null) {
+            databaseReference.child(CHALLENGES_REFERENCE).child(challengeId).setValue(challenge)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            callback.runResultOnUiThread(true);
+                        } else {
+                            callback.runResultOnUiThread(false);
+                        }
+                    });
+        } else {
+            callback.runResultOnUiThread(false);
+        }
+    }
+
+    public void getChallenges(Callback<List<Challenge>> callback) {
+        databaseReference.child(CHALLENGES_REFERENCE).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Challenge> challenges = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Challenge challenge = snapshot.getValue(Challenge.class);
+                    challenges.add(challenge);
+                }
+                callback.runResultOnUiThread(challenges);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(FIREBASE_SERVICE_TAG, "Challenges data unavailable");
+                callback.runResultOnUiThread(null);
+            }
+        });
+    }
+
 
 }

@@ -45,9 +45,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.tvPoints.setText(String.format(holder.itemView.getContext().getString(R.string.item_recycler_points), recycler.getNumberOfPoints()));
 
         if (recycler.getImageURL() != null && !recycler.getImageURL().isEmpty()) {
-            Picasso.get().load(recycler.getImageURL()).placeholder(R.drawable.pfp_100px).into(holder.ivProfileImage);
+            Picasso.get().load(recycler.getImageURL()).placeholder(R.drawable.star_24px).into(holder.ivProfileImage);
         } else {
-            holder.ivProfileImage.setImageResource(R.drawable.pfp_100px);
+            holder.ivProfileImage.setImageResource(R.drawable.star_24px);
         }
     }
 

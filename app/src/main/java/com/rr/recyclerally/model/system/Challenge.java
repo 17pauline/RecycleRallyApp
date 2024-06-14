@@ -1,17 +1,36 @@
 package com.rr.recyclerally.model.system;
 
+import com.rr.recyclerally.utils.DateConverter;
+
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Challenge {
-    private static final int MAX_ITEMS = 10;
+public class Challenge implements Serializable {
+    private int itemsNumber;
     private EItemType itemType;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
+    private Map<String, Integer> participants;
 
-    public Challenge(EItemType itemType, Date startDate, Date endDate) {
+    public Challenge() {
+    }
+
+    public Challenge(int itemsNumber, EItemType itemType, String endDate) {
+        this.itemsNumber = itemsNumber;
         this.itemType = itemType;
-        this.startDate = startDate;
+        this.startDate = DateConverter.fromDate(new Date());
         this.endDate = endDate;
+        this.participants = new HashMap<>();
+    }
+
+    public int getItemsNumber() {
+        return itemsNumber;
+    }
+
+    public void setItemsNumber(int itemsNumber) {
+        this.itemsNumber = itemsNumber;
     }
 
     public EItemType getItemType() {
@@ -22,32 +41,38 @@ public class Challenge {
         this.itemType = itemType;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public int getMaxItems() {
-        return MAX_ITEMS;
+    public Map<String, Integer> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Map<String, Integer> participants) {
+        this.participants = participants;
     }
 
     @Override
     public String toString() {
         return "Challenge{" +
-                "itemType=" + itemType +
+                "itemsNumber=" + itemsNumber +
+                ", itemType=" + itemType +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", participants=" + participants +
                 '}';
     }
 }

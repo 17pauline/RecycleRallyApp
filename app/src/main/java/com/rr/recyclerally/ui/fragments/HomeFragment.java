@@ -73,11 +73,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void runResultOnUiThread(List<Recycler> result) {
                 if (result != null && !result.isEmpty()) {
-                    Log.d(HOME_FRAGMENT_TAG, "Recyclers data retrieved, setting adapter");
+                    Log.d(HOME_FRAGMENT_TAG, getString(R.string.log_recyclers_data_retrieved_setting_adapter));
                     RecyclerAdapter adapter = new RecyclerAdapter(result, LayoutInflater.from(getContext()));
                     rvUsers.setAdapter(adapter);
                 } else {
-                    Log.e(HOME_FRAGMENT_TAG, "Error retrieving recyclers");
+                    Log.e(HOME_FRAGMENT_TAG, getString(R.string.log_error_retrieving_recyclers));
                 }
             }
         });

@@ -9,6 +9,9 @@ public class RecycledItem {
     private Date datePosted;
     private boolean registeredInChallenge;
 
+    public RecycledItem() {
+    }
+
     public RecycledItem(String imageURL, EItemType itemType) {
         this.imageURL = imageURL;
         this.itemType = itemType;

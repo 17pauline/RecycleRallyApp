@@ -2,18 +2,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_margin="8dp"
+    android:padding="4dp"
+    android:layout_margin="16dp"
+    android:layout_gravity="center_horizontal"
     android:background="@drawable/rounded_item_challenge">
 
     <TextView
-        android:id="@+id/item_challenge_tv_text"
+        android:id="@+id/item_challenge_tv_challengeDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_challenge_text"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        style="@style/TextMediumBold"
+        style="@style/TextRegularBold"
         />
 
     <TextView
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/item_challenge_start_date"
         android:layout_gravity="center"
-        style="@style/TextMediumItalic"
+        style="@style/TextMediumBold"
         android:textColor="@color/white"/>
 
     <TextView
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/item_challenge_end_date"
         android:layout_gravity="center"
-        style="@style/TextMediumItalic"
+        style="@style/TextMediumBold"
         android:textColor="@color/white"
         />
 
@@ -39,25 +40,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/item_challenge_btn_join"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
             style="@style/ButtonsMedium"
             android:text="@string/item_challenge_join"
             />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/item_challenge_btn_viewParticipants"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="8dp"
+            android:layout_weight="1"
             style="@style/ButtonsMedium"
             android:text="@string/item_challenge_view_participants"
             />

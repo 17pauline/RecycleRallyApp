@@ -142,4 +142,8 @@
     <string name="log_user_is_unavailable">User is unavailable</string>
     <string name="log_loaded_image_url_on_profile">"Loaded image URL on profile "</string>
     <string name="profile_admin">Admin</string>
+    <string name="log_recyclers_data_retrieved_setting_adapter">Recyclers data retrieved, setting adapter</string>
+    <string name="log_error_retrieving_recyclers">Error retrieving recyclers</string>
+    <string name="toast_please_select_a_valid_date_to_end_the_challenge">Please select a valid date to end the Challenge</string>
+    <string name="toast_the_maximum_number_of_recycled_items_for_a_challenge_is_10">The maximum number of recycled items for a Challenge is 10</string>
 </resources>
