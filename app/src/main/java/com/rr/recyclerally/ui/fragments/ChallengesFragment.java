@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,6 @@ public class ChallengesFragment extends Fragment {
         rvChallenges.setAdapter(challengeAdapter);
         
         loadChallenges();
-        
     }
 
     private void loadChallenges() {
@@ -74,9 +74,12 @@ public class ChallengesFragment extends Fragment {
             @Override
             public void runResultOnUiThread(List<Challenge> result) {
                 if (result != null) {
+                    Log.d(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_challenges_data_retrieved_setting_adapter));
                     challenges.clear();
                     challenges.addAll(result);
                     challengeAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_error_retrieving_challenges));
                 }
             }
         });

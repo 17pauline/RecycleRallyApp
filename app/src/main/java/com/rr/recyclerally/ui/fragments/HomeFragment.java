@@ -20,6 +20,7 @@ import com.rr.recyclerally.model.adapter.RecyclerAdapter;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Recycler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,8 @@ public class HomeFragment extends Fragment {
     private FirebaseService firebaseService;
     private TextView tvHello;
     private RecyclerView rvUsers;
+    private List<Recycler> recyclers;
+    private RecyclerAdapter recyclerAdapter;
 
 
     public HomeFragment() {
@@ -64,6 +67,10 @@ public class HomeFragment extends Fragment {
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         rvUsers.setHasFixedSize(true);
 
+        recyclers = new ArrayList<>();
+        recyclerAdapter = new RecyclerAdapter(recyclers, getLayoutInflater());
+        rvUsers.setAdapter(recyclerAdapter);
+
         populateTvHello(view);
         loadRecyclers();
     }
@@ -74,8 +81,9 @@ public class HomeFragment extends Fragment {
             public void runResultOnUiThread(List<Recycler> result) {
                 if (result != null && !result.isEmpty()) {
                     Log.d(HOME_FRAGMENT_TAG, getString(R.string.log_recyclers_data_retrieved_setting_adapter));
-                    RecyclerAdapter adapter = new RecyclerAdapter(result, LayoutInflater.from(getContext()));
-                    rvUsers.setAdapter(adapter);
+                    recyclers.clear();
+                    recyclers.addAll(result);
+                    recyclerAdapter.notifyDataSetChanged();
                 } else {
                     Log.e(HOME_FRAGMENT_TAG, getString(R.string.log_error_retrieving_recyclers));
                 }
