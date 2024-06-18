@@ -46,6 +46,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_geo_API_KEY" />
+
+        <meta-data android:name="android.util.Log.className" android:value="android.util.Log"/>
     </application>
 
 </manifest>

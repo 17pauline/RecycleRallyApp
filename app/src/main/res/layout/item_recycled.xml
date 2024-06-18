@@ -32,11 +32,5 @@
         android:layout_gravity="center"
         style="@style/TextSmall"/>
 
-    <TextView
-        android:id="@+id/item_recycled_tv_RegisteredInChallenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/item_recycled_registered"
-        android:layout_gravity="center"
-        style="@style/TextSmall"/>
+
 </LinearLayout>

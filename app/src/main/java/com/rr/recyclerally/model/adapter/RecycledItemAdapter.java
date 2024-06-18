@@ -35,7 +35,6 @@ public class RecycledItemAdapter extends RecyclerView.Adapter<RecycledItemAdapte
         Picasso.get().load(item.getImageURL()).into(holder.ivItem);
         holder.tvItemType.setText(item.getItemType().toString());
         holder.tvDatePosted.setText(item.getDatePosted().toString());
-        holder.tvRegisteredInChallenge.setText(item.isRegisteredInChallenge() ? "YES" : "NO");
     }
 
     @Override
@@ -47,14 +46,12 @@ public class RecycledItemAdapter extends RecyclerView.Adapter<RecycledItemAdapte
         public AppCompatImageView ivItem;
         public TextView tvItemType;
         public TextView tvDatePosted;
-        public TextView tvRegisteredInChallenge;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItem = itemView.findViewById(R.id.item_recycled_iv);
             tvItemType = itemView.findViewById(R.id.item_recycled_tv_type);
             tvDatePosted = itemView.findViewById(R.id.item_recycled_tv_datePosted);
-            tvRegisteredInChallenge = itemView.findViewById(R.id.item_recycled_tv_RegisteredInChallenge);
         }
     }
 }

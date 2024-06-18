@@ -113,7 +113,7 @@ public class FirebaseService {
     // POSTS - RECYCLED ITEMS
     // insert / update post
     public void savePost(String userId, RecycledItem recycledItem, String postId, Callback<Boolean> callback) {
-        databaseReference.child(USERS_REFERENCE).child(userId).child(POSTS_REFERENCE).child(postId).setValue(postId)
+        databaseReference.child(POSTS_REFERENCE).child(userId).child(postId).setValue(recycledItem)
                 .addOnCompleteListener(task -> callback.runResultOnUiThread(task.isSuccessful()));
     }
 

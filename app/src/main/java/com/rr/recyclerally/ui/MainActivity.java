@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -34,7 +35,10 @@ import com.rr.recyclerally.ui.fragments.ProfileFragment;
 import com.rr.recyclerally.ui.fragments.SettingsFragment;
 import com.rr.recyclerally.ui.fragments.TutorialFragment;
 
+import org.opencv.android.OpenCVLoader;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String MAIN_ACTIVITY_TAG = "MainActivity";
     private static final String PREFS_NAME = "RecycleRallyPrefs";
 
     private FloatingActionButton fabAdd;
@@ -60,7 +64,17 @@ public class MainActivity extends AppCompatActivity {
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
+        initializeOpencv();
+    }
 
+    private void initializeOpencv() {
+        // IMPORTANT
+        if (!OpenCVLoader.initDebug()) {
+            Log.e(MAIN_ACTIVITY_TAG, getString(R.string.log_opencv_initialization_failed));
+            System.loadLibrary("opencv_java4");
+        } else {
+            Log.d(MAIN_ACTIVITY_TAG, getString(R.string.log_opencv_initialization_succeeded));
+        }
     }
 
     private void initComponents() {

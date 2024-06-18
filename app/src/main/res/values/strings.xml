@@ -100,7 +100,8 @@
     <string name="item_recycled_registered">Registered in Challenge: %1$s</string>
     <string name="item_recycled_date_posted">Date Posted: %1$s</string>
     <string name="item_recycled_type">Item Type: %1$s</string>
-    <string name="add_post_algorithm_classification">Algorithm classification: %1$s</string>
+    <string name="add_post_algorithm_classification">Algorithm classification:</string>
+    <string name="add_post_algorithm_classification_result">-</string>
     <string name="add_post_recycle_item">Recycle item</string>
     <string name="description_uploaded_item_image">Uploaded Item Image</string>
     <string-array name="user_types">
@@ -148,4 +149,15 @@
     <string name="toast_the_maximum_number_of_recycled_items_for_a_challenge_is_10">The maximum number of recycled items for a Challenge is 10</string>
     <string name="log_challenges_data_retrieved_setting_adapter">Challenges data retrieved, setting adapter</string>
     <string name="log_error_retrieving_challenges">Error retrieving challenges</string>
+    <string name="add_post_your_feedback">Your feedback:</string>
+    <string name="log_opencv_initialization_failed">OpenCV initialization failed</string>
+    <string name="log_opencv_initialization_succeeded">OpenCV initialization succeeded</string>
+    <string name="add_post_ai_inference">AI inference</string>
+    <string name="dialog_select_an_image_from_your_library">Select an image from your library</string>
+    <string name="dialog_proceed_with_selected_item">Proceed with selected item?</string>
+    <string name="toast_please_select_an_image">Please select an image</string>
+    <string name="toast_iv_failed_to_upload_image">Failed to upload image</string>
+    <string name="log_failed_to_retrieve_user_data">Failed to retrieve user data</string>
+    <string name="toast_item_recycled">Item recycled!</string>
+    <string name="toast_failed_to_upload_item">Failed to upload item</string>
 </resources>

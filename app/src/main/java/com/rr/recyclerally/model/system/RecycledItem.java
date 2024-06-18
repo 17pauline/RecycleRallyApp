@@ -1,30 +1,28 @@
 package com.rr.recyclerally.model.system;
 
+import com.rr.recyclerally.utils.DateConverter;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class RecycledItem {
+public class RecycledItem implements Serializable {
     private String imageURL;
+    private String algorithmClassification;
     private EItemType itemType;
-    private boolean algorithmFeedback;
-    private Date datePosted;
+    private String datePosted;
     private boolean registeredInChallenge;
+    private boolean verifiedByAdmin;
 
     public RecycledItem() {
     }
 
-    public RecycledItem(String imageURL, EItemType itemType) {
+    public RecycledItem(String imageURL, EItemType itemType, String algorithmClassification) {
         this.imageURL = imageURL;
         this.itemType = itemType;
-        this.datePosted = new Date();
+        this.algorithmClassification = algorithmClassification;
+        this.datePosted = DateConverter.fromDate(new Date());
         this.registeredInChallenge = false;
-    }
-
-    public RecycledItem(String imageURL, EItemType itemType, boolean algorithmFeedback, Date datePosted, boolean registeredInChallenge) {
-        this.imageURL = imageURL;
-        this.itemType = itemType;
-        this.algorithmFeedback = algorithmFeedback;
-        this.datePosted = datePosted;
-        this.registeredInChallenge = registeredInChallenge;
+        this.verifiedByAdmin = false;
     }
 
     public String getImageURL() {
@@ -43,19 +41,19 @@ public class RecycledItem {
         this.itemType = itemType;
     }
 
-    public boolean isAlgorithmFeedback() {
-        return algorithmFeedback;
+    public String getAlgorithmClassification() {
+        return algorithmClassification;
     }
 
-    public void setAlgorithmFeedback(boolean algorithmFeedback) {
-        this.algorithmFeedback = algorithmFeedback;
+    public void setAlgorithmClassification(String algorithmClassification) {
+        this.algorithmClassification = algorithmClassification;
     }
 
-    public Date getDatePosted() {
+    public String getDatePosted() {
         return datePosted;
     }
 
-    public void setDatePosted(Date datePosted) {
+    public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
     }
 
@@ -67,13 +65,23 @@ public class RecycledItem {
         this.registeredInChallenge = registeredInChallenge;
     }
 
+    public boolean isVerifiedByAdmin() {
+        return verifiedByAdmin;
+    }
+
+    public void setVerifiedByAdmin(boolean verifiedByAdmin) {
+        this.verifiedByAdmin = verifiedByAdmin;
+    }
+
     @Override
     public String toString() {
         return "RecycledItem{" +
+                "imageURL='" + imageURL + '\'' +
+                ", algorithmClassification='" + algorithmClassification + '\'' +
                 ", itemType=" + itemType +
-                ", algorithmFeedback=" + algorithmFeedback +
-                ", datePosted=" + datePosted +
+                ", datePosted='" + datePosted + '\'' +
                 ", registeredInChallenge=" + registeredInChallenge +
+                ", verifiedByAdmin=" + verifiedByAdmin +
                 '}';
     }
 }

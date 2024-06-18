@@ -10,30 +10,51 @@
         android:id="@+id/add_post_iv"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_marginTop="32dp"
         android:layout_gravity="center"
         android:contentDescription="@string/description_uploaded_item_image"
         android:scaleType="centerCrop"
         android:src="@drawable/add_photo_24px" />
 
-    <TextView
-    android:id="@+id/add_post_tv_result"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:text="@string/add_post_algorithm_classification"
-    android:gravity="center"
-    style="@style/TextRegular" />
-
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/add_post_spn_type"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:entries="@array/item_types"
         android:layout_gravity="center"
         android:minHeight="48dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_post_btn_inference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
+        style="@style/ButtonsSpecial"
+        android:text="@string/add_post_ai_inference" />
+
+
+    <TextView
+        android:id="@+id/add_post_tv_algorithmClassification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_post_algorithm_classification"
+        android:gravity="center"
+        style="@style/TextRegularBold" />
+
+    <TextView
+        android:id="@+id/add_post_tv_algorithmClassification_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_post_algorithm_classification_result"
+        android:gravity="center"
+        style="@style/TextRegularBold" />
 
     <androidx.appcompat.widget.AppCompatButton
     android:id="@+id/add_post_btn_save"
