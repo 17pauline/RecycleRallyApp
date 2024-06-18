@@ -29,6 +29,8 @@ public class FirebaseService {
 
     private DatabaseReference databaseReference;
 
+    private ValueEventListener challengesListener;
+
     public FirebaseService() {
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
     }
@@ -45,6 +47,7 @@ public class FirebaseService {
         databaseReference.child(USERS_REFERENCE).child(userId).child("imageURL").setValue(imageURL)
                 .addOnCompleteListener(task -> callback.runResultOnUiThread(task.isSuccessful()));
     }
+
 
     // retrieve user
     public void getUser(String userId, Callback<AUser> callback) {
@@ -69,7 +72,7 @@ public class FirebaseService {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(FIREBASE_SERVICE_TAG, "User data unavailable");
+                Log.e(FIREBASE_SERVICE_TAG, "User data unavailable", error.toException());
                 callback.runResultOnUiThread(null);
             }
         });
@@ -102,7 +105,7 @@ public class FirebaseService {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(FIREBASE_SERVICE_TAG, "Recyclers data unavailable");
+                Log.e(FIREBASE_SERVICE_TAG, "Recyclers data unavailable", error.toException());
                 callback.runResultOnUiThread(null);
             }
         });
@@ -119,7 +122,7 @@ public class FirebaseService {
 
     // retrieve posts for a user
     public void getPosts(String userId, Callback<List<RecycledItem>> callback) {
-        databaseReference.child(USERS_REFERENCE).child(userId).child(POSTS_REFERENCE).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(POSTS_REFERENCE).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<RecycledItem> posts = new ArrayList<>();
@@ -132,11 +135,39 @@ public class FirebaseService {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(FIREBASE_SERVICE_TAG, "Post data unavailable");
+                Log.e(FIREBASE_SERVICE_TAG, "Post data unavailable", error.toException());
                 callback.runResultOnUiThread(null);
             }
         });
     }
+
+    // retrieve all posts with verifiedByAdmin set to false (posts that show up in Admin feed)
+    public void getUnverifiedPosts(Callback<List<RecycledItem>> callback) {
+        databaseReference.child(POSTS_REFERENCE).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<RecycledItem> posts = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot postSnapshot : userSnapshot.getChildren()) {
+                        RecycledItem recycledItem = postSnapshot.getValue(RecycledItem.class);
+                        if (recycledItem != null && !recycledItem.isVerifiedByAdmin()) {
+                            posts.add(recycledItem);
+                        }
+                    }
+                }
+                callback.runResultOnUiThread(posts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(FIREBASE_SERVICE_TAG, "Post data unavailable", error.toException());
+                callback.runResultOnUiThread(null);
+            }
+        });
+    }
+
+
+
 
     // CHALLENGES
     public void addChallenge(Challenge challenge, Callback<Boolean> callback) {
@@ -156,24 +187,58 @@ public class FirebaseService {
     }
 
     public void getChallenges(Callback<List<Challenge>> callback) {
-        databaseReference.child(CHALLENGES_REFERENCE).addValueEventListener(new ValueEventListener() {
+        challengesListener = new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Challenge> challenges = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Challenge challenge = snapshot.getValue(Challenge.class);
+                for (DataSnapshot challengeSnapshot : snapshot.getChildren()) {
+                    Challenge challenge = challengeSnapshot.getValue(Challenge.class);
                     challenges.add(challenge);
                 }
                 callback.runResultOnUiThread(challenges);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(FIREBASE_SERVICE_TAG, "Challenges data unavailable");
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(FIREBASE_SERVICE_TAG, "Challenges data unavailable", error.toException());
+                callback.runResultOnUiThread(null);
+            }
+        };
+        databaseReference.child(CHALLENGES_REFERENCE).addValueEventListener(challengesListener);
+    }
+
+    public void removeChallengesListener() {
+        if (challengesListener != null) {
+            databaseReference.child(CHALLENGES_REFERENCE).removeEventListener(challengesListener);
+        }
+    }
+
+
+    // update recycler points
+    // Retrieve user points
+    public void getUserPoints(String userId, Callback<Integer> callback) {
+        databaseReference.child(USERS_REFERENCE).child(userId).child("numberOfPoints").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Integer points = snapshot.getValue(Integer.class);
+                if (points != null) {
+                    callback.runResultOnUiThread(points);
+                } else {
+                    callback.runResultOnUiThread(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(FIREBASE_SERVICE_TAG, "Failed to retrieve user points", error.toException());
                 callback.runResultOnUiThread(null);
             }
         });
     }
 
-
+    // Update user points
+    public void updateUserPoints(String userId, int newPoints, Callback<Boolean> callback) {
+        databaseReference.child(USERS_REFERENCE).child(userId).child("numberOfPoints").setValue(newPoints)
+                .addOnCompleteListener(task -> callback.runResultOnUiThread(task.isSuccessful()));
+    }
 }

@@ -145,11 +145,34 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
                 if (result) {
                     Toast.makeText(getApplicationContext(),
                             R.string.toast_item_recycled, Toast.LENGTH_SHORT).show();
-                    finish();
+
+                    addPointToUser(userId);
+//                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             R.string.toast_failed_to_upload_item, Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+
+    private void addPointToUser(String userId) {
+        firebaseService.getUserPoints(userId, new Callback<Integer>() {
+            @Override
+            public void runResultOnUiThread(Integer points) {
+                int newPoints = points + 1;
+                firebaseService.updateUserPoints(userId, newPoints, new Callback<Boolean>() {
+                    @Override
+                    public void runResultOnUiThread(Boolean result) {
+                        if (result) {
+                            Log.d(ADD_POST_TAG, "User points updated successfully.");
+                        } else {
+                            Log.e(ADD_POST_TAG, "Failed to update user points.");
+                        }
+                        finish();
+                    }
+                });
             }
         });
     }

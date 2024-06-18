@@ -73,15 +73,24 @@ public class ChallengesFragment extends Fragment {
         firebaseService.getChallenges(new Callback<List<Challenge>>() {
             @Override
             public void runResultOnUiThread(List<Challenge> result) {
-                if (result != null) {
-                    Log.d(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_challenges_data_retrieved_setting_adapter));
-                    challenges.clear();
-                    challenges.addAll(result);
-                    challengeAdapter.notifyDataSetChanged();
-                } else {
-                    Log.e(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_error_retrieving_challenges));
+                if (isAdded()) {
+                    if (result != null) {
+                        Log.d(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_challenges_data_retrieved_setting_adapter));
+                        challenges.clear();
+                        challenges.addAll(result);
+                        challengeAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.e(CHALLENGES_FRAGMENT_TAG, getString(R.string.log_error_retrieving_challenges));
+                    }
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        firebaseService.removeChallengesListener();
     }
 }

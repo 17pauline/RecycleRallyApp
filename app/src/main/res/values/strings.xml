@@ -160,4 +160,6 @@
     <string name="log_failed_to_retrieve_user_data">Failed to retrieve user data</string>
     <string name="toast_item_recycled">Item recycled!</string>
     <string name="toast_failed_to_upload_item">Failed to upload item</string>
+    <string name="log_items_data_retrieved_setting_adapter">Items data retrieved, setting adapter</string>
+    <string name="log_error_retrieving_items">Error retrieving items</string>
 </resources>

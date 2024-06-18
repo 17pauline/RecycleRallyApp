@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.database.FirebaseService;
 import com.rr.recyclerally.database.UserSession;
 import com.rr.recyclerally.model.user.AUser;
 import com.rr.recyclerally.model.user.Recycler;
@@ -144,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
     private void handleLogout() {
         UserSession.getInstance().clear();
         FirebaseAuth.getInstance().signOut();
+
+        FirebaseService firebaseService = new FirebaseService();
+        firebaseService.removeChallengesListener();
 
         clearSharedPreferences();
 
