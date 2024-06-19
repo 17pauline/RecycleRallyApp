@@ -2,6 +2,7 @@ package com.rr.recyclerally.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,19 +28,28 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.async.DownloadImageTask;
 import com.rr.recyclerally.async.LoadImageTask;
 import com.rr.recyclerally.async.UploadImageTask;
 import com.rr.recyclerally.database.Callback;
 import com.rr.recyclerally.database.FirebaseService;
 import com.rr.recyclerally.model.system.EItemType;
 import com.rr.recyclerally.model.system.RecycledItem;
+import com.rr.recyclerally.utils.ImageUtils;
+import com.rr.recyclerally.utils.ModelUtils;
+import com.rr.recyclerally.utils.TensorUtils;
 import com.squareup.picasso.Picasso;
 
 
+import org.pytorch.IValue;
+import org.pytorch.Module;
+import org.pytorch.Tensor;
+
 import java.util.UUID;
 
-public class AddPostActivity extends AppCompatActivity implements LoadImageTask.ImageLoadCallback, UploadImageTask.ImageUploadCallback {
+public class AddPostActivity extends AppCompatActivity implements LoadImageTask.ImageLoadCallback, UploadImageTask.ImageUploadCallback, DownloadImageTask.ImageDownloadCallback {
     private static final String ADD_POST_TAG = "AddPostActivity";
+    public static final String RESNET50_PATH = "resnet50_model_lite.ptl";
     private FirebaseService firebaseService;
     private FirebaseAuth auth;
     private FirebaseStorage storage;
@@ -54,6 +64,10 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
     private String postId;
     String imageURL; // gets loaded into iv & database !
 
+    private Module resnetModel;
+    private String[] classes = {"cardboard", "glass", "metal", "paper", "plastic", "trash"};
+    private int argmax = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +80,6 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
         storageReference = storage.getReference("items_images");
 
         initComponents();
-        // load pytorch model HERE
     }
 
     private void initComponents() {
@@ -81,7 +94,56 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
         launcherChooseFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), callbackChooseImage);
 
         ivPost.setOnClickListener(v -> openFileChooser());
+        btnInference.setOnClickListener(v -> inference());
         btnSavePost.setOnClickListener(v -> savePost());
+    }
+
+    private void inference() {
+        if (imageURL != null) {
+            loadPyTorchModel();
+            new DownloadImageTask(this).execute(imageURL);
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.toast_image_not_yet_uploaded, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void loadPyTorchModel() {
+        try {
+            resnetModel = ModelUtils.loadModel(this, RESNET50_PATH);
+            if (resnetModel == null) {
+                Toast.makeText(this,
+                        R.string.toast_failed_to_load_model, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        } catch (Exception e) {
+            Log.e(ADD_POST_TAG, "Exception loading model", e);
+            finish();
+        }
+    }
+
+    private void runPyTorchModel(Bitmap bitmap) {
+        try {
+            // from imageURL to bitmap, bitmap needs to be populated with whatever image is in imageURL right now
+            Tensor inputTensor = TensorUtils.preprocessImage(bitmap);
+
+            IValue output = resnetModel.forward(IValue.from(inputTensor));
+            float[] preds = output.toTensor().getDataAsFloatArray();
+
+            // prediction with highest score
+            float max = preds[0];
+            for (int i = 1; i < preds.length; i++) {
+                if (preds[i] > max) {
+                    max = preds[i];
+                    argmax = i;
+                }
+            }
+
+            String algorithmClassification = classes[argmax];
+            tvAlgorithmClassification.setText(algorithmClassification);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -99,11 +161,9 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
                 .setTitle(R.string.dialog_select_an_image_from_your_library)
                 .setMessage(R.string.dialog_proceed_with_selected_item)
                 .setPositiveButton(R.string.dialog_yes, ((dialog, which) -> {
-                    Log.d(ADD_POST_TAG, "User confirmed image upload");
                     uploadImage();
                 }))
                 .setNegativeButton(R.string.dialog_no, ((dialog, which) -> {
-                    Log.d(ADD_POST_TAG, "User canceled image upload");
                 }))
                 .show();
     }
@@ -122,8 +182,7 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
 
     private void savePost() {
         if (imageURL == null) {
-            Toast.makeText(this, "Image not uploaded yet", Toast.LENGTH_SHORT).show();
-            Log.e(ADD_POST_TAG, "Image URL is null. Cannot save post.");
+            Toast.makeText(getApplicationContext(), R.string.toast_image_not_yet_uploaded, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -147,7 +206,6 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
                             R.string.toast_item_recycled, Toast.LENGTH_SHORT).show();
 
                     addPointToUser(userId);
-//                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             R.string.toast_failed_to_upload_item, Toast.LENGTH_SHORT).show();
@@ -166,9 +224,7 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
                     @Override
                     public void runResultOnUiThread(Boolean result) {
                         if (result) {
-                            Log.d(ADD_POST_TAG, "User points updated successfully.");
-                        } else {
-                            Log.e(ADD_POST_TAG, "Failed to update user points.");
+                            Toast.makeText(getApplicationContext(), R.string.toast_point_awarded, Toast.LENGTH_SHORT).show();
                         }
                         finish();
                     }
@@ -186,8 +242,12 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
     @Override
     public void onImageUploaded(String URL) {
         imageURL = URL;
-        Log.d(ADD_POST_TAG, "Image uploaded successfully. Image URL: " + imageURL);
         Picasso.get().load(imageURL).placeholder(R.drawable.add_photo_24px).into(ivPost);
+    }
+
+    @Override
+    public void onImageDownloaded(Bitmap bitmap) {
+        runPyTorchModel(bitmap);
     }
 
 

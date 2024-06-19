@@ -162,4 +162,7 @@
     <string name="toast_failed_to_upload_item">Failed to upload item</string>
     <string name="log_items_data_retrieved_setting_adapter">Items data retrieved, setting adapter</string>
     <string name="log_error_retrieving_items">Error retrieving items</string>
+    <string name="toast_point_awarded">+1 point awarded</string>
+    <string name="toast_failed_to_load_model">Failed to load model</string>
+    <string name="toast_image_not_yet_uploaded">Image not yet uploaded</string>
 </resources>
