@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeOpencv() {
-        // IMPORTANT
         if (!OpenCVLoader.initDebug()) {
             Log.e(MAIN_ACTIVITY_TAG, getString(R.string.log_opencv_initialization_failed));
             System.loadLibrary("opencv_java4");

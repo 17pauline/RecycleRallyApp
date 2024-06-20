@@ -90,11 +90,9 @@ public class SignupActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             if (firebaseUser != null) {
                                 String firebaseUserUid = firebaseUser.getUid();
-                                Log.d(SIGNUP_TAG, "User created with UID: " + firebaseUserUid);
 
                                 firebaseService.saveUser(user, firebaseUserUid, result -> {
                                     if (result) {
-                                        Log.d(SIGNUP_TAG, "User data saved to database");
                                         UserSession.getInstance().setUser(user);
                                         Toast.makeText(getApplicationContext(),
                                                 R.string.toast_signup_successful, Toast.LENGTH_SHORT).show();

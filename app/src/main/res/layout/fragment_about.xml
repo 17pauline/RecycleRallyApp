@@ -12,12 +12,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/app_icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="@string/nav_header_description_icon"
+            android:src="@drawable/compost_75px"
+            android:layout_marginTop="8dp" />
+
+
         <TextView
             android:id="@+id/about_tv_title"
             style="@style/Subtitles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/about_us" />
@@ -26,10 +37,64 @@
             android:id="@+id/about_tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:text="@string/about_description"
+            style="@style/TextSmall"
+            />
+
+        <TextView
+            android:id="@+id/about_tv_p1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/about_p1"
             style="@style/TextRegular"
             />
+
+        <TextView
+            android:id="@+id/about_tv_sh1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/about_sh1"
+            style="@style/TextRegularBold"
+            />
+
+        <TextView
+            android:id="@+id/about_tv_p2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/about_p2"
+            style="@style/TextRegular"
+            />
+
+        <TextView
+            android:id="@+id/about_tv_sh2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/about_sh2"
+            style="@style/TextRegularBold"
+            />
+
+        <TextView
+            android:id="@+id/about_tv_p3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/about_p3"
+            style="@style/TextRegular"
+            />
+
 
     </LinearLayout>
 </ScrollView>

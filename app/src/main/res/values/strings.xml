@@ -165,4 +165,9 @@
     <string name="toast_point_awarded">+1 point awarded</string>
     <string name="toast_failed_to_load_model">Failed to load model</string>
     <string name="toast_image_not_yet_uploaded">Image not yet uploaded</string>
+    <string name="about_p1">Welcome to RecycleRally, your ultimate companion in the journey towards a cleaner, greener planet. \n\nAt RecycleRally, we believe that every small step towards recycling can lead to significant environmental impact.</string>
+    <string name="about_sh1">\nOur purpose</string>
+    <string name="about_p2">We wish to transform recycling from a mundane task into an engaging, competitive, and educational experience. \n\nRecycleRally is designed to encourage and inspire you to recycle more effectively and consistently. By participating in various recycling challenges, you can compete with other eco-conscious users, track your progress, and celebrate your contributions to the environment. \n\nOur app not only makes recycling fun but also helps you maintain a Recycling Diary to reflect on your efforts and stay motivated.</string>
+    <string name="about_sh2">\nHarnessing the power of AI</string>
+    <string name="about_p3">At the heart of RecycleRally is a powerful computer vision model that classifies the items you recycle. \n\nAs you document your recycled materials, our AI learns and improves, building a comprehensive data bank to enhance its accuracy and efficiency. \n\nThis innovative use of artificial intelligence not only simplifies your recycling process but also contributes to advancing the technology for waste management.</string>
 </resources>

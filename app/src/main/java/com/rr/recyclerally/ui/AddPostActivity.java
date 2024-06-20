@@ -4,12 +4,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.rr.recyclerally.R;
 import com.rr.recyclerally.async.DownloadImageTask;
 import com.rr.recyclerally.async.LoadImageTask;
@@ -35,7 +31,6 @@ import com.rr.recyclerally.database.Callback;
 import com.rr.recyclerally.database.FirebaseService;
 import com.rr.recyclerally.model.system.EItemType;
 import com.rr.recyclerally.model.system.RecycledItem;
-import com.rr.recyclerally.utils.ImageUtils;
 import com.rr.recyclerally.utils.ModelUtils;
 import com.rr.recyclerally.utils.TensorUtils;
 import com.squareup.picasso.Picasso;
@@ -124,13 +119,11 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
 
     private void runPyTorchModel(Bitmap bitmap) {
         try {
-            // from imageURL to bitmap, bitmap needs to be populated with whatever image is in imageURL right now
             Tensor inputTensor = TensorUtils.preprocessImage(bitmap);
 
             IValue output = resnetModel.forward(IValue.from(inputTensor));
             float[] preds = output.toTensor().getDataAsFloatArray();
 
-            // prediction with highest score
             float max = preds[0];
             for (int i = 1; i < preds.length; i++) {
                 if (preds[i] > max) {
@@ -171,7 +164,6 @@ public class AddPostActivity extends AppCompatActivity implements LoadImageTask.
     private void uploadImage() {
         if (imageUri != null) {
             postId = UUID.randomUUID().toString();
-            Log.d(ADD_POST_TAG, "Attempting to upload image with postId: " + postId);
             new UploadImageTask(this, storageReference, postId, this).execute(imageUri);
         } else {
             Toast.makeText(getApplicationContext(),

@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.rr.recyclerally.R;
+import com.rr.recyclerally.async.LoadImageTask;
 import com.rr.recyclerally.database.FirebaseService;
 import com.rr.recyclerally.database.UserSession;
 import com.rr.recyclerally.model.user.AUser;
@@ -46,7 +47,7 @@ import com.squareup.picasso.Picasso;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements LoadImageTask.ImageLoadCallback {
     private static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
     private static final String GMM_URI = "geo:44.4268,26.1025?q=recycling points";
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private Uri imageUri;
+    private String imageURL;
     private ShapeableImageView ivProfileImage;
     private TextView tvUsername;
     private TextView tvPoints;
@@ -129,7 +131,7 @@ public class ProfileFragment extends Fragment {
         return result -> {
             if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
                 imageUri = result.getData().getData();
-                ivProfileImage.setImageURI(imageUri);
+                new LoadImageTask(getContext(), ivProfileImage, this).execute(imageUri);
                 confirmImageUpload();
             }
         };
@@ -211,4 +213,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onImageLoaded(Uri uri) {
+        confirmImageUpload();
+    }
 }
