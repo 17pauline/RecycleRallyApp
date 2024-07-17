@@ -26,9 +26,115 @@
             android:id="@+id/tutorial_tv_paragraphOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:text="@string/tutorial_paragraphOne"
             style="@style/TextRegular"
+            />
+
+        <TextView
+            android:id="@+id/tutorial_tv_paragraph2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tutorial_p2"
+            style="@style/TextRegular"
+            />
+
+        <TextView
+            android:id="@+id/tutorial_tv_paragraph3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tutorial_p3"
+            style="@style/TextRegular"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_home"
+            android:src="@drawable/home"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/desc_home_page"
+            />
+
+        <TextView
+            android:id="@+id/tutorial_tv_paragraph4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tutorial_p4"
+            style="@style/TextRegular"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_items"
+            android:src="@drawable/items"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/image_description"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_add_1"
+            android:src="@drawable/add_1"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/image_description"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_add_2"
+            android:src="@drawable/add_2"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/image_description"
+            />
+
+
+        <TextView
+            android:id="@+id/tutorial_tv_paragraph5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tutorial_p5"
+            style="@style/TextRegular"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_challenges"
+            android:src="@drawable/challenges"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/image_description"
+            />
+
+        <TextView
+            android:id="@+id/tutorial_tv_paragraph6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/tutorial_p6"
+            style="@style/TextRegular"
+            />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:id="@+id/tutorial_iv_profile"
+            android:src="@drawable/profile"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/image_description"
             />
 
     </LinearLayout>
